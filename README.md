@@ -3,4 +3,7 @@ A discord bot based on one of my art characters. Simply for testing and learning
 
 # Commands
 
-'Any Message' Will make the bot respond with "...Hello"
+All commands prefix with 'K!'
+
+hello - Responds back with "...hello"
+copycat <Message> - Responds back with a direct copy of the message after the command.
