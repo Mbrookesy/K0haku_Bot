@@ -1,28 +1,21 @@
 import discord
+from discord.ext import commands
 
 token = open("token.txt", "r").read()
+bot = commands.Bot(command_prefix='K!')
 
-client = discord.Client()  # starts the discord client.
 
-
-@client.event  # event decorator/wrapper
+@bot.event  # event decorator/wrapper
 async def on_ready():  # method expected by client. This runs once when connected
-    print(f'We have logged in as {client.user}')  # notification of login.
+    print(f'We have logged in as {bot.user}')  # notification of login.
 
 
-@client.event
-async def on_message(message):  # event that happens per any message.
+@bot.command()
+async def hello(ctx):
+    await ctx.send("...Hello")
 
-    # each message has a bunch of attributes. Here are a few.
-    # check out more by print(dir(message)) for example.
-    print(f"{message.channel}: {message.author}: {message.author.name}: {message.content}")
+@bot.command()
+async def copycat(ctx, *args):
+    await ctx.send('{}'.format(' '.join(args)))
 
-@client.event
-async def on_message(message):  # event that happens per any message.
-    print(f"{message.channel}: {message.author}: {message.author.name}: {message.content}")
-    if str(message.author) == "Zappy#6534" and "test" in message.content.lower():
-        await message.channel.send('....Hello')
-
-client.run(token)
-
-
+bot.run(token)
