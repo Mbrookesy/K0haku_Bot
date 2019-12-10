@@ -18,4 +18,19 @@ async def hello(ctx):
 async def copycat(ctx, *args):
     await ctx.send('{}'.format(' '.join(args)))
 
+@bot.command()
+async def calc(ctx, operation, arg1, arg2):
+    arg1 = int(arg1)
+    arg2 = int(arg2)
+    if operation == "add":
+        await ctx.send(arg1 + arg2)
+    elif operation == "sub":
+        await ctx.send(arg1 - arg2)
+    elif operation == "mul":
+        await ctx.send(arg1 * arg2)
+    elif operation == "div":
+        await ctx.send(arg1 / arg2)
+    else:
+        await ctx.send("Invalid Operation")
+
 bot.run(token)
