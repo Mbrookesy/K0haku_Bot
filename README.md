@@ -7,3 +7,8 @@ All commands prefix with 'K!'
 
 - K!hello - Responds back with "...hello"
 - K!copycat <Message> - Responds back with a direct copy of the message after the command.
+- K!calc <operation> <number1> <number2> - performs a basic operation with 2 numbers, operations include:
+  - add - performs addition on the 2 numbers
+  - sub - performs subtraction on the 2 numbers
+  - mul - performs multiplications on the 2 numbers
+  - div - performs division on the 2 numbers
