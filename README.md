@@ -1,4 +1,4 @@
-# K0haku_Bot
+# K0haku_Bot V0.1.3
 A discord bot based on one of my art characters. Simply for testing and learning purposes.
 
 # Commands
