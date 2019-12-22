@@ -13,3 +13,4 @@ All commands prefix with 'K!'
   - mul - performs multiplications on the 2 numbers
   - div - performs division on the 2 numbers
  - K!users Displays all the current users
+- K!message <User> <Message> - Direct messages the specified user with the message.
