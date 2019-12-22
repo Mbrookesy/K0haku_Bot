@@ -2,3 +2,4 @@
 .idea/workspace.xml
 token.txt
 stats.txt
+.gitignore

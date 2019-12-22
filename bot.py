@@ -71,6 +71,17 @@ async def users(ctx):
     for i in bot.users:
         await ctx.send(i)
 
+@bot.command()
+async def message(ctx, user: discord.User, *message):
+    message = str(message)
+    message = message.replace("(", "")
+    message = message.replace(")", "")
+    message = message.replace("'", "")
+    message = message.replace(",", " ")
+
+    await user.send(message)
+    await ctx.send("Message Sent")
+
 bot.loop.create_task(update_stats())
 
 bot.run(token)
