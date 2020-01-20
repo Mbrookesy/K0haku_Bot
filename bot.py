@@ -2,6 +2,9 @@ import discord
 from discord.ext import commands
 import time
 import asyncio
+import random
+import datetime
+from datetime import datetime, date
 
 token = open("token.txt", "r").read()
 bot = commands.Bot(command_prefix='K!')
@@ -16,15 +19,16 @@ async def update_stats():
     while not bot.is_closed():
         try:
             with open("stats.txt", "a") as f:
-                f.write(f"Time: {int(time.time())}, Messages: {messages}, Members Joined: {joined}\n")
+                realtime = time.strftime("%a, %d %b %Y %H:%M:%S %Z", time.localtime(int(time.time())))
+                f.write(f"Time: {realtime}, Messages: {messages}, Members Joined: {joined}\n")
 
             messages = 0
             joined = 0
 
-            await asyncio.sleep(5)
+            await asyncio.sleep(60)
         except Exception as e:
             print(e)
-            await asyncio.sleep(5)
+            await asyncio.sleep(60)
 
 @bot.event  # event decorator/wrapper
 async def on_ready():  # method expected by client. This runs once when connected
@@ -40,6 +44,7 @@ async def on_message(message):
     global messages
     messages += 1
     await bot.process_commands(message)
+
 
 @bot.command()
 async def hello(ctx):
@@ -72,6 +77,12 @@ async def users(ctx):
         await ctx.send(i)
 
 @bot.command()
+async def age(ctx):
+    t1 = datetime.utcfromtimestamp(1420675200)
+    t2 = datetime.now() - t1
+    await ctx.send("I am currently " + str(t2.days) + " days old")
+
+@bot.command()
 async def message(ctx, user: discord.User, *message):
     message = str(message)
     message = message.replace("(", "")
@@ -81,6 +92,30 @@ async def message(ctx, user: discord.User, *message):
 
     await user.send(message)
     await ctx.send("Message Sent")
+
+@bot.command()
+async def elielfact(ctx):
+    f = open("eliel_facts.txt", "r")
+    lines = f.readlines()
+    fact = random.randint(0, 5)
+    if fact == 0:
+        await ctx.send(lines[0])
+    elif fact == 1:
+        await ctx.send(lines[1])
+    elif fact == 2:
+        await ctx.send(lines[2])
+    elif fact == 3:
+        await ctx.send(lines[3])
+    elif fact == 4:
+        await ctx.send(lines[4])
+
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        await ctx.send("Beep Boop command not found")
+    else:
+        raise error
+
 
 bot.loop.create_task(update_stats())
 
