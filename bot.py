@@ -4,7 +4,8 @@ import time
 import asyncio
 import random
 import datetime
-from datetime import datetime, date
+from datetime import datetime
+from itertools import cycle
 
 token = open("token.txt", "r").read()
 bot = commands.Bot(command_prefix='K!')
@@ -33,6 +34,17 @@ async def update_stats():
 @bot.event  # event decorator/wrapper
 async def on_ready():  # method expected by client. This runs once when connected
     print(f'We have logged in as {bot.user}')  # notification of login.
+
+status = ['with Eliel', 'Tetris', 'with random buttons']
+
+async def change_status():
+    await bot.wait_until_ready()
+    statuses = cycle(status)
+
+    while bot.is_closed:
+        current_status = next(statuses)
+        await bot.change_presence(activity=discord.Game(name=current_status))
+        await asyncio.sleep(60)
 
 @bot.event
 async def on_member_join(member):
@@ -118,5 +130,6 @@ async def on_command_error(ctx, error):
 
 
 bot.loop.create_task(update_stats())
+bot.loop.create_task(change_status())
 
 bot.run(token)
