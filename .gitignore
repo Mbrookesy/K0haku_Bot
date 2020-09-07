@@ -2,5 +2,6 @@
 .idea/workspace.xml
 token.txt
 stats.txt
-.gitignore
 eliel_facts.txt
+venv
+.idea
